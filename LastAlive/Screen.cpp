@@ -11,21 +11,21 @@ namespace Engine
 	{
 	}
 
-	void Screen::update(float p_delta)
+	void Screen::Update(float p_delta)
 	{
 		for (auto& e : m_entities)
-			e->update(p_delta);
+			e->Update(p_delta);
 	}
 
-	void Screen::render(sf::RenderWindow& p_window)
+	void Screen::Render(sf::RenderWindow& p_window)
 	{
 		for (auto& e : m_entities)
-			e->render(p_window);
+			e->Render(p_window);
 	}
 
-	void Screen::handleInput(sf::Event& p_event)
+	void Screen::HandleInput(sf::Event& p_event)
 	{
 		for (auto& e : m_entities)
-			e->handleInput(p_event);
+			e->HandleInput(p_event);
 	}
 } //  namespace Engine

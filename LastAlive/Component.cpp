@@ -16,4 +16,16 @@ namespace Engine
 	{
 		return m_getsRender;
 	}
+
+	void Component::update(float p_delta)
+	{
+	}
+
+	void Component::render(sf::RenderWindow& p_window)
+	{
+	}
+
+	void Component::handleInput(sf::Event& p_event)
+	{
+	}
 } //  namespace Engine

@@ -14,9 +14,9 @@ namespace Engine
 		Component() = default;
 		virtual ~Component() = default;
 
-		virtual void update(float p_delta) = 0;
-		virtual void render(sf::RenderWindow& p_window) = 0;
-		virtual void handleInput(sf::Event& p_event) = 0;
+		virtual void update(float p_delta);
+		virtual void render(sf::RenderWindow& p_window);
+		virtual void handleInput(sf::Event& p_event);
 
 		bool GetsInput() const;
 		bool GetsUpdate() const;

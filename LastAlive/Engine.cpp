@@ -43,7 +43,7 @@ namespace Engine
 	void Engine::update()
 	{
 		if (m_pCurrentScreen)
-			m_pCurrentScreen->update(m_clock.restart().asSeconds());
+			m_pCurrentScreen->Update(m_clock.restart().asSeconds());
 	}
 
 	void Engine::render()
@@ -51,7 +51,7 @@ namespace Engine
 		m_window.clear(sf::Color{140, 140, 140});
 
 		if (m_pCurrentScreen)
-			m_pCurrentScreen->render(m_window);
+			m_pCurrentScreen->Render(m_window);
 
 		m_window.display();
 	}
@@ -66,7 +66,7 @@ namespace Engine
 				m_running = false;
 
 			if (m_pCurrentScreen)
-				m_pCurrentScreen->handleInput(events);
+				m_pCurrentScreen->HandleInput(events);
 		}
 	}
 
