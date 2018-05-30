@@ -16,25 +16,25 @@ namespace Engine
 	{
 		for (auto& c : m_components)
 			if (c->GetsUpdate())
-				c->update(p_delta);
+				c->Update(p_delta);
 	}
 
 	void Entity::Render(sf::RenderWindow& p_window)
 	{
 		for (auto& c : m_components)
 			if (c->GetsRender())
-				c->render(p_window);
+				c->Render(p_window);
 	}
 
 	void Entity::HandleInput(sf::Event& p_event)
 	{
 		for (auto& c : m_components)
 			if (c->GetsInput())
-				c->handleInput(p_event);
+				c->HandleInput(p_event);
 	}
 
 	void Entity::AddComponent(Component* component)
 	{
-		m_components.emplace_back( component );
+		m_components.emplace_back(component);
 	}
 } //  namespace Engine

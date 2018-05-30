@@ -45,5 +45,3 @@ namespace Engine
 		Screen* m_pCurrentScreen;
 	};
 } //  namespace Engine
-
-

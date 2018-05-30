@@ -23,7 +23,7 @@ namespace Engine
 
 		/// Render calls the Render function on all renderable components of this entity
 		virtual void Render(sf::RenderWindow& p_window);
-		
+
 		/// Handle input calls the HandleInput function on all components of this entity 
 		virtual void HandleInput(sf::Event& p_event);
 
@@ -56,5 +56,3 @@ namespace Engine
 		return nullptr;
 	}
 } // namespace Engine
-
-

@@ -7,7 +7,6 @@ namespace LastAlive
 	{
 	}
 
-
 	PositionComponent::PositionComponent(float x, float y)
 		: PositionComponent(sf::Vector2f{x, y})
 	{

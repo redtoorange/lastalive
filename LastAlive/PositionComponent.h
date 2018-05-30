@@ -18,7 +18,7 @@ namespace LastAlive
 		const sf::Vector2f& GetPosition() const;
 		float GetPositionX() const;
 		float GetPositionY() const;
-		
+
 	private:
 		sf::Vector2f m_position;
 	};
