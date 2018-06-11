@@ -20,5 +20,7 @@ namespace LastAlive
 		PositionComponent m_positionComponent;
 
 		sf::Texture m_texture;
+
+		float speed = 100.0f;
 	};
 }

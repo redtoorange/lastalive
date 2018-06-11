@@ -11,6 +11,7 @@ namespace LastAlive
 
 		m_texture.loadFromFile(texturePath);
 		m_spriteComponent.SetTexture(m_texture);
+		m_spriteComponent.SetSize(64, 64);
 		m_spriteComponent.SetPosition(m_positionComponent.GetPosition());
 	}
 
@@ -19,7 +20,10 @@ namespace LastAlive
 		Entity::Update(p_delta);
 
 		auto pos = m_positionComponent.GetPosition();
-		pos += m_inputComponent.GetDeltaInput();
+		auto input = m_inputComponent.GetDeltaInput();
+		input.normalize();
+
+		pos += (input * p_delta * speed);
 		m_positionComponent.SetPosition(pos);
 
 		m_spriteComponent.SetPosition(m_positionComponent.GetPosition());

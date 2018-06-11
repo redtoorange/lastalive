@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include "Renderer.h"
 
 namespace Engine
 {
@@ -10,8 +11,7 @@ namespace Engine
 	class Engine
 	{
 	public:
-		Engine();
-		Engine(Uint p_width, Uint p_height);
+		Engine(sf::RenderWindow* window);
 		virtual ~Engine();
 
 		virtual void Start();
@@ -22,15 +22,22 @@ namespace Engine
 		virtual void SetRunning(bool p_running);
 		virtual bool IsRunning();
 
-		virtual Uint GetWindowWidth();
-		virtual Uint GetWindowHeight();
+//		virtual Uint GetWindowWidth();
+//		virtual Uint GetWindowHeight();
 
-		virtual void SetWindowWidth(Uint p_width);
-		virtual void SetWindowHeight(Uint p_height);
+//		virtual void SetWindowWidth(Uint p_width);
+//		virtual void SetWindowHeight(Uint p_height);
 
 
 	protected:
-		sf::RenderWindow m_window;
+		sf::RenderWindow* m_window;
+
+		ModelRenderer* renderer;
+
+		Mesh m_mesh;
+		MeshInstance m_instance;
+
+		
 		sf::Clock m_clock;
 
 		virtual void update();
@@ -38,8 +45,8 @@ namespace Engine
 		virtual void handleInput();
 
 	private:
-		Uint m_windowWidth;
-		Uint m_windowHeight;
+//		Uint m_windowWidth;
+//		Uint m_windowHeight;
 
 		bool m_running = false;
 		Screen* m_pCurrentScreen;

@@ -1,18 +1,14 @@
 #include "Engine.h"
 #include "Screen.h"
+#include <iostream>
 
 
 namespace Engine
 {
-	Engine::Engine()
-		: m_window({800, 600}, "Game Window"), m_windowWidth(800), m_windowHeight(600)
+	Engine::Engine(sf::RenderWindow* window)
+		: m_window(window), m_mesh(), m_instance(&m_mesh)
 	{
-	}
-
-
-	Engine::Engine(Uint width, Uint height)
-		: m_window({width, height}, "Game Window"), m_windowWidth(width), m_windowHeight(height)
-	{
+		renderer = new ModelRenderer();
 	}
 
 
@@ -28,7 +24,10 @@ namespace Engine
 
 	void Engine::Start()
 	{
+		m_instance.SetShader(renderer->GetDefaultShader());
 		m_running = true;
+		
+		m_window->setVerticalSyncEnabled(true);
 
 		while (m_running)
 		{
@@ -37,30 +36,40 @@ namespace Engine
 			render();
 		}
 
-		m_window.close();
+		m_window->close();
 	}
 
 	void Engine::update()
 	{
+		float delta = m_clock.restart().asSeconds();
 		if (m_pCurrentScreen)
-			m_pCurrentScreen->Update(m_clock.restart().asSeconds());
+			m_pCurrentScreen->Update(delta);
+
+		auto rot = m_instance.GetRotation();
+		rot.x += delta;
+		m_instance.SetRotation(rot);
+
+		renderer->Render(&m_instance);
 	}
 
 	void Engine::render()
 	{
-		m_window.clear(sf::Color{140, 140, 140});
+		m_window->clear(sf::Color{140, 140, 140});
+
 
 		if (m_pCurrentScreen)
-			m_pCurrentScreen->Render(m_window);
+			m_pCurrentScreen->Render(*m_window);
 
-		m_window.display();
+		renderer->Draw();
+
+		m_window->display();
 	}
 
 
 	void Engine::handleInput()
 	{
 		sf::Event events;
-		while (m_window.pollEvent(events))
+		while (m_window->pollEvent(events))
 		{
 			if (events.type == sf::Event::Closed)
 				m_running = false;
@@ -81,27 +90,28 @@ namespace Engine
 		return m_running;
 	}
 
-	Uint Engine::GetWindowWidth()
-	{
-		return m_windowWidth;
-	}
-
-	Uint Engine::GetWindowHeight()
-	{
-		return m_windowHeight;
-	}
-
-	void Engine::SetWindowWidth(Uint p_width)
-	{
-		m_windowWidth = p_width;
-	}
-
-	void Engine::SetWindowHeight(Uint p_height)
-	{
-		m_windowHeight = p_height;
-	}
+//	Uint Engine::GetWindowWidth()
+//	{
+//		return m_windowWidth;
+//	}
+//
+//	Uint Engine::GetWindowHeight()
+//	{
+//		return m_windowHeight;
+//	}
+//
+//	void Engine::SetWindowWidth(Uint p_width)
+//	{
+//		m_windowWidth = p_width;
+//	}
+//
+//	void Engine::SetWindowHeight(Uint p_height)
+//	{
+//		m_windowHeight = p_height;
+//	}
 
 	Engine::~Engine()
 	{
+		delete renderer;
 	}
 } //  namespace Engine

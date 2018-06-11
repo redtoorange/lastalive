@@ -15,8 +15,8 @@ namespace Engine
 	class Entity
 	{
 	public:
-		Entity();
-		virtual ~Entity();
+		Entity() = default;
+		virtual ~Entity() = default;
 
 		/// Update calls the Update function on all updatable components of this entity
 		virtual void Update(float p_delta);
@@ -35,7 +35,7 @@ namespace Engine
 		T* GetComponent();
 
 	protected:
-		std::vector<std::unique_ptr<Component>> m_components;
+		std::vector<Component*> m_components;
 	};
 
 	template <class T>
@@ -45,7 +45,7 @@ namespace Engine
 		for (auto& c : m_components)
 		{
 			// Try to cast it
-			T* comp = dynamic_cast<T*>(c.get());
+			T* comp = dynamic_cast<T*>(c);
 
 			// If it can be cast, its a match, return it
 			if (comp)

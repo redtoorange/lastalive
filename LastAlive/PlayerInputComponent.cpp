@@ -1,5 +1,6 @@
 #include "PlayerInputComponent.h"
 #include <SFML/Window/Keyboard.hpp>
+#include "Vector2f.h"
 
 namespace LastAlive
 {
@@ -17,7 +18,7 @@ namespace LastAlive
 
 	void PlayerInputComponent::Update(float p_delta)
 	{
-		m_deltaInput = {0, 0};
+		m_deltaInput = Engine::Vector2f{0, 0};
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 			m_deltaInput.y -= 1;
@@ -37,7 +38,7 @@ namespace LastAlive
 		return (m_deltaInput.x != 0 || m_deltaInput.y != 0);
 	}
 
-	const sf::Vector2f& PlayerInputComponent::GetDeltaInput() const
+	const Engine::Vector2f& PlayerInputComponent::GetDeltaInput() const
 	{
 		return m_deltaInput;
 	}

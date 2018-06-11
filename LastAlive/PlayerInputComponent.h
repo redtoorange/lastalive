@@ -1,6 +1,6 @@
 #pragma once
 #include "Component.h"
-#include <SFML/System/Vector2.hpp>
+#include "Vector2f.h"
 
 namespace LastAlive
 {
@@ -13,11 +13,11 @@ namespace LastAlive
 
 		virtual void Update(float p_delta) override;
 
-		const sf::Vector2f& GetDeltaInput() const;
+		const Engine::Vector2f& GetDeltaInput() const;
 
 		bool InputRead() const;
 
 	private:
-		sf::Vector2f m_deltaInput;
+		Engine::Vector2f m_deltaInput;
 	};
 }

@@ -4,14 +4,6 @@
 
 namespace Engine
 {
-	Entity::Entity()
-	{
-	}
-
-	Entity::~Entity()
-	{
-	}
-
 	void Entity::Update(float p_delta)
 	{
 		for (auto& c : m_components)
