@@ -21,10 +21,10 @@ namespace LastAlive
 		m_deltaInput = Engine::Vector2f{0, 0};
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-			m_deltaInput.y -= 1;
+			m_deltaInput.y += 1;
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-			m_deltaInput.y += 1;
+			m_deltaInput.y -= 1;
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			m_deltaInput.x -= 1;

@@ -19,8 +19,8 @@ namespace LastAlive
 		SpriteComponent m_spriteComponent;
 		PositionComponent m_positionComponent;
 
-		sf::Texture m_texture;
+		// sf::Texture m_texture;
 
-		float speed = 100.0f;
+		float speed = 1.0f;
 	};
 }

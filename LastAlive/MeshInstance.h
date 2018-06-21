@@ -1,36 +1,54 @@
 #pragma once
 
-#include "ShaderProgram.h"
 #include <SFML/Graphics/Texture.hpp>
 #include <glm/glm.hpp>
 
-namespace Engine
-{
-	class Mesh;
+namespace Engine {
+	class RawMesh;
+	class ShaderProgram;
 
-	class MeshInstance
-	{
+	class MeshInstance {
 	public:
-		MeshInstance(Mesh* mesh);
+		MeshInstance() = default;
 
-		void SetPosition(const glm::vec3& position);
-		void SetRotation(const glm::vec3& rotation);
-		void SetScale(const glm::vec3& scale);
-
-		glm::vec3 GetRotation() const;
-		glm::vec3 GetPosition() const;
-		glm::mat4x4 GetTransform();
+		MeshInstance(RawMesh* mesh);
 
 		void SetShader(ShaderProgram* shader);
+
+		void SetTexture(sf::Texture* texture);
+
+		void SetPosition(const glm::vec3& position);
+
+		void SetRotation(const glm::vec3& rotation);
+
+		void SetScale(const glm::vec3& scale);
+
+		void SetMesh(RawMesh* mesh);
+
+		RawMesh* GetMesh() const;
+
+		glm::vec3 GetRotation() const;
+
+		glm::vec3 GetPosition() const;
+
+		glm::mat4x4 GetTransform();
+
 		void Draw();
 
 	private:
-		ShaderProgram* m_pShader;
-		Mesh* m_pMesh;
-		sf::Texture m_texture;
+		void CleanUp();
 
-		glm::vec3 m_position;
-		glm::vec3 m_rotation;
-		glm::vec3 m_scale;
+		void PerpareToDraw();
+
+		////////////////////////////////////////////////
+		//	Member Data
+		////////////////////////////////////////////////
+		ShaderProgram* m_pShader;
+		RawMesh* m_pMesh;
+		sf::Texture* m_texture;
+
+		glm::vec3 m_position{0, 0, 0};
+		glm::vec3 m_rotation{0, 0, 0};
+		glm::vec3 m_scale{1, 1, 1};
 	};
 }

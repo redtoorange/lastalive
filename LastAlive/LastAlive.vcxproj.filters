@@ -37,6 +37,12 @@
     <Filter Include="Header Files\3D">
       <UniqueIdentifier>{cb2bc6ab-0d99-4fdd-b389-cdc6eccda536}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\2D">
+      <UniqueIdentifier>{14831481-faa0-4252-9b1c-1316dd233a14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\2D">
+      <UniqueIdentifier>{e1344631-fbd2-4e51-98e1-07b494f31703}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -72,17 +78,26 @@
     <ClCompile Include="Vector2f.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>Source Files\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>Source Files\3D</Filter>
-    </ClCompile>
     <ClCompile Include="ShaderProgram.cpp">
       <Filter>Source Files\3D</Filter>
     </ClCompile>
     <ClCompile Include="MeshInstance.cpp">
       <Filter>Source Files\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Source Files\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="RawMesh.cpp">
+      <Filter>Source Files\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="BatchRenderer.cpp">
+      <Filter>Source Files\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGLScreen.cpp">
+      <Filter>Source Files\Screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -116,17 +131,26 @@
     <ClInclude Include="Vector2f.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>Header Files\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Header Files\3D</Filter>
-    </ClInclude>
     <ClInclude Include="ShaderProgram.h">
       <Filter>Header Files\3D</Filter>
     </ClInclude>
     <ClInclude Include="MeshInstance.h">
       <Filter>Header Files\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="RawMesh.h">
+      <Filter>Header Files\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="BatchRenderer.h">
+      <Filter>Header Files\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGLScreen.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.hpp">
+      <Filter>Header Files\2D</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

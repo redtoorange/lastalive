@@ -3,15 +3,15 @@
 namespace LastAlive
 {
 	PlayerCharacter::PlayerCharacter(std::string texturePath)
-		: m_positionComponent(10, 10)
+		: m_positionComponent(0, 0)
 	{
 		Entity::AddComponent(&m_positionComponent);
 		Entity::AddComponent(&m_inputComponent);
 		Entity::AddComponent(&m_spriteComponent);
 
-		m_texture.loadFromFile(texturePath);
-		m_spriteComponent.SetTexture(m_texture);
-		m_spriteComponent.SetSize(64, 64);
+		// m_texture.loadFromFile(texturePath);
+		// m_spriteComponent.SetTexture(m_texture);
+		// m_spriteComponent.SetSize(64, 64);
 		m_spriteComponent.SetPosition(m_positionComponent.GetPosition());
 	}
 
@@ -25,7 +25,6 @@ namespace LastAlive
 
 		pos += (input * p_delta * speed);
 		m_positionComponent.SetPosition(pos);
-
 		m_spriteComponent.SetPosition(m_positionComponent.GetPosition());
 	}
 }

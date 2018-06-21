@@ -1,15 +1,21 @@
 #pragma once
 #include "Component.h"
 #include <SFML/Graphics.hpp>
+#include "Sprite.hpp"
 
-namespace LastAlive
-{
-	class SpriteComponent : public Engine::Component
-	{
+namespace Engine {
+	class Renderer;
+}
+
+namespace LastAlive {
+
+	class SpriteComponent : public Engine::Component {
 	public:
 		SpriteComponent();
 
-		virtual void Render(sf::RenderWindow& p_window) override;
+		// virtual void Render(sf::RenderWindow& p_window) override;
+
+		void Render(Engine::BatchRenderer& p_batch) override;
 
 		void SetTexture(const sf::Texture& p_texture);
 
@@ -20,8 +26,7 @@ namespace LastAlive
 		void SetScale(float x, float y);
 
 	private:
-		sf::Sprite m_sprite;
-
+		Engine::Sprite m_sprite;
 		sf::Vector2u m_textureSize;
 	};
 }

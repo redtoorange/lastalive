@@ -1,31 +1,24 @@
 #include "Component.h"
+#include "BatchRenderer.h"
 
-namespace Engine
-{
-	bool Component::GetsInput() const
-	{
+namespace Engine {
+	bool Component::GetsInput() const {
 		return m_getsInput;
 	}
 
-	bool Component::GetsUpdate() const
-	{
+	bool Component::GetsUpdate() const {
 		return m_getsUpdate;
 	}
 
-	bool Component::GetsRender() const
-	{
+	bool Component::GetsRender() const {
 		return m_getsRender;
 	}
 
-	void Component::Update(float p_delta)
-	{
-	}
+	void Component::Update(float p_delta) { }
 
-	void Component::Render(sf::RenderWindow& p_window)
-	{
-	}
+	void Component::Render(sf::RenderWindow& p_window) { }
 
-	void Component::HandleInput(sf::Event& p_event)
-	{
-	}
+	void Component::Render(BatchRenderer& p_batch) { }
+
+	void Component::HandleInput(sf::Event& p_event) { }
 } //  namespace Engine

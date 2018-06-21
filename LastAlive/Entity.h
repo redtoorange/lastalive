@@ -1,21 +1,20 @@
 #pragma once
 #include <vector>
 #include <memory>
+#include "BatchRenderer.h"
 
-namespace sf
-{
+namespace sf {
 	class RenderWindow;
 	class Event;
 }
 
-namespace Engine
-{
+namespace Engine {
 	class Component;
 
-	class Entity
-	{
+	class Entity {
 	public:
 		Entity() = default;
+
 		virtual ~Entity() = default;
 
 		/// Update calls the Update function on all updatable components of this entity
@@ -23,6 +22,8 @@ namespace Engine
 
 		/// Render calls the Render function on all renderable components of this entity
 		virtual void Render(sf::RenderWindow& p_window);
+
+		virtual void Render(BatchRenderer& p_batch);
 
 		/// Handle input calls the HandleInput function on all components of this entity 
 		virtual void HandleInput(sf::Event& p_event);
@@ -39,11 +40,9 @@ namespace Engine
 	};
 
 	template <class T>
-	T* Entity::GetComponent()
-	{
+	T* Entity::GetComponent() {
 		// Search all components
-		for (auto& c : m_components)
-		{
+		for (auto& c : m_components) {
 			// Try to cast it
 			T* comp = dynamic_cast<T*>(c);
 
