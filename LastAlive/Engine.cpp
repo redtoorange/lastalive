@@ -1,24 +1,31 @@
 #include "Engine.h"
-#include "Screen.h"
+#include "Scene.h"
 #include <iostream>
 #include <GL/glew.h>
 
 namespace Engine {
-	Engine::Engine(sf::RenderWindow* window)
-		: m_pWindow(window) { }
+	Engine* Engine::Singleton = nullptr;
 
-	void Engine::SetCurrentScreen(Screen* p_pScreen) {
-		m_pCurrentScreen = p_pScreen;
+	Engine::Engine(sf::RenderWindow* window)
+		: m_window(window) {
+		if (Singleton)
+			std::exception("Attempting to create two copies of a singleton.");
+		if (!Singleton)
+			Singleton = this;
 	}
 
-	Screen* Engine::GetCurrentScreen() {
-		return m_pCurrentScreen;
+	Engine* Engine::GetSingleton() {
+		return Singleton;
+	}
+
+	void Engine::SetCurrentScene(Scene* scene) { m_currentScene = scene; }
+
+	Scene* Engine::GetCurrentScene() {
+		return m_currentScene;
 	}
 
 	void Engine::Start() {
-		m_running = true;
-
-		// m_pWindow->setVerticalSyncEnabled(true);
+		m_running = true;;
 
 		while (m_running) {
 			handleInput();
@@ -26,48 +33,47 @@ namespace Engine {
 			render();
 		}
 
-		m_pWindow->close();
+		m_window->close();
 	}
 
 	float total = 0;
 	int frames = 0;
 
 	void Engine::update() {
-		float delta = m_clock.restart().asSeconds();
+		const auto deltaTime = m_clock.restart().asSeconds();
 
 		frames++;
-		total += delta;
-		if(total >= 1.0f) {
+		total += deltaTime;
+		if (total >= 1.0f) {
 			total = 0;
 			std::cout << "FPS: " << frames << "\n";
 			frames = 0;
 		}
 
-		if (m_pCurrentScreen)
-			m_pCurrentScreen->Update(delta);
+		if (m_currentScene)
+			m_currentScene->Update(deltaTime);
 	}
 
 	void Engine::render() {
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		if (m_pCurrentScreen) {
-			m_pCurrentScreen->Render(m_renderer);
-		}
+		if (m_currentScene)
+			m_currentScene->Render(m_renderer);
 
-		m_renderer.RenderBatch();
+		m_renderer.RenderBatch(m_currentCamera);
 
-		m_pWindow->display();
+		m_window->display();
 	}
 
 	void Engine::handleInput() {
 		sf::Event events;
-		while (m_pWindow->pollEvent(events)) {
+		while (m_window->pollEvent(events)) {
 			if (events.type == sf::Event::Closed)
 				m_running = false;
 
-			if (m_pCurrentScreen)
-				m_pCurrentScreen->HandleInput(events);
+			if (m_currentScene)
+				m_currentScene->Input();
 		}
 	}
 
@@ -77,5 +83,13 @@ namespace Engine {
 
 	bool Engine::IsRunning() {
 		return m_running;
+	}
+
+	void Engine::SetCurrentCamera(Camera* currentCamera) {
+		m_currentCamera = currentCamera;
+	}
+
+	Camera* Engine::GetCurrentCamera() const {
+		return m_currentCamera;
 	}
 } //  namespace Engine

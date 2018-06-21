@@ -21,7 +21,7 @@ namespace Engine {
 		///	Prepare the model's data for drawing
 		virtual void PrepareToDraw();
 
-		/// Draw the model.
+		/// AddToBatch the model.
 		virtual void Draw();
 
 		///	Cleanup the model's data after it has been drawn

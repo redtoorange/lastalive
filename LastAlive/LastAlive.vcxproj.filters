@@ -13,24 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\Component">
-      <UniqueIdentifier>{116181f0-8161-46cf-90d0-1eff663d35f0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Entity">
-      <UniqueIdentifier>{7d57ece7-c80c-4ec9-94b9-6f95bb6aedc3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Screen">
-      <UniqueIdentifier>{c8ded202-8943-4491-8ee3-7d0e44e8df05}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Component">
-      <UniqueIdentifier>{0b9befb1-d6b9-4d73-b0e0-9dffc4e7efbe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Entity">
-      <UniqueIdentifier>{1961211f-9abe-473f-93ed-f08d28629d08}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Screen">
-      <UniqueIdentifier>{477b2237-8e79-45a9-baba-adfb74fbb1e8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\3D">
       <UniqueIdentifier>{d5ce8546-0ad2-4fb8-ac5b-4eb76c1b4aac}</UniqueIdentifier>
     </Filter>
@@ -43,39 +25,27 @@
     <Filter Include="Header Files\2D">
       <UniqueIdentifier>{e1344631-fbd2-4e51-98e1-07b494f31703}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\assets">
+      <UniqueIdentifier>{0ae07223-4f63-4d4e-853f-b4ad00f4655a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Nodes">
+      <UniqueIdentifier>{d5af9f23-7bb1-4da2-baad-1e742fdc359d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Nodes">
+      <UniqueIdentifier>{7dcd1673-2ec2-4176-ac98-d7aaab41497c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Util">
+      <UniqueIdentifier>{514a5398-d061-43e0-8885-c25a671b4735}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Util">
+      <UniqueIdentifier>{6d2ca039-1201-4794-8a7a-baf41936c60c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>Source Files\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerInputComponent.cpp">
-      <Filter>Source Files\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="PositionComponent.cpp">
-      <Filter>Source Files\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteComponent.cpp">
-      <Filter>Source Files\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Source Files\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="GameScreen.cpp">
-      <Filter>Source Files\Screen</Filter>
-    </ClCompile>
-    <ClCompile Include="Screen.cpp">
-      <Filter>Source Files\Screen</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerCharacter.cpp">
-      <Filter>Source Files\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector2f.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ShaderProgram.cpp">
@@ -96,39 +66,18 @@
     <ClCompile Include="BatchRenderer.cpp">
       <Filter>Source Files\3D</Filter>
     </ClCompile>
-    <ClCompile Include="OpenGLScreen.cpp">
-      <Filter>Source Files\Screen</Filter>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>Source Files\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2f.cpp">
+      <Filter>Source Files\Util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Header Files\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerInputComponent.h">
-      <Filter>Header Files\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="PositionComponent.h">
-      <Filter>Header Files\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteComponent.h">
-      <Filter>Header Files\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Header Files\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="GameScreen.h">
-      <Filter>Header Files\Screen</Filter>
-    </ClInclude>
-    <ClInclude Include="Screen.h">
-      <Filter>Header Files\Screen</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerCharacter.h">
-      <Filter>Header Files\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2f.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ShaderProgram.h">
@@ -146,11 +95,30 @@
     <ClInclude Include="BatchRenderer.h">
       <Filter>Header Files\3D</Filter>
     </ClInclude>
-    <ClInclude Include="OpenGLScreen.h">
-      <Filter>Header Files\Screen</Filter>
-    </ClInclude>
     <ClInclude Include="Sprite.hpp">
       <Filter>Header Files\2D</Filter>
     </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Header Files\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2f.h">
+      <Filter>Header Files\Util</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\vertex.glsl">
+      <Filter>Resource Files\assets</Filter>
+    </None>
+    <None Include="assets\fragment.glsl">
+      <Filter>Resource Files\assets</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\mario.png">
+      <Filter>Resource Files\assets</Filter>
+    </Image>
   </ItemGroup>
 </Project>

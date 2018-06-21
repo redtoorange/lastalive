@@ -3,6 +3,7 @@
 #include <vector>
 #include <memory>
 #include <unordered_map>
+#include "Camera.h"
 
 namespace Engine {
 	class ShaderProgram;
@@ -17,9 +18,9 @@ namespace Engine {
 
 		virtual ~BatchRenderer() = default;
 
-		void Render(MeshInstance* instance);
+		void AddToBatch(MeshInstance* instance);
 
-		void RenderBatch();
+		void RenderBatch(Camera* currentCamera);
 
 	private:
 		////////////////////////////////////////////////

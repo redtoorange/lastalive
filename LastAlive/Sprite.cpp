@@ -22,7 +22,7 @@ namespace Engine {
 	}
 
 	void Sprite::Render(BatchRenderer& p_batch) {
-		p_batch.Render(&m_meshInstance);
+		p_batch.AddToBatch(&m_meshInstance);
 	}
 
 	Sprite::~Sprite() {}

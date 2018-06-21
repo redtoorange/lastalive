@@ -20,7 +20,7 @@ namespace Engine {
 		/// Update calls the Update function on all updatable components of this entity
 		virtual void Update(float p_delta);
 
-		/// Render calls the Render function on all renderable components of this entity
+		/// AddToBatch calls the AddToBatch function on all renderable components of this entity
 		virtual void Render(sf::RenderWindow& p_window);
 
 		virtual void Render(BatchRenderer& p_batch);

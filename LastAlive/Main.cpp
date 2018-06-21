@@ -4,6 +4,8 @@
 #include <GL/glew.h>
 #include <SFML/OpenGL.hpp>
 #include "OpenGLScreen.h"
+#include "Scene.h"
+#include "Node.h"
 
 int main()
 {
@@ -19,9 +21,19 @@ int main()
 	glewInit();
 
 	Engine::Engine e{&window};
-	Engine::OpenGLScreen gs;
+	Engine::Scene scene;
 
-	e.SetCurrentScreen(&gs);
+	Engine::SpriteNode spriteNode;
+	spriteNode.AddNode(new Engine::Camera2DNode());
+	auto cam = spriteNode.GetNode<Engine::Camera2DNode>();
+	cam->SetActive(true);
+	
+	
+	scene.SetRootNode(&spriteNode);
+
+
+
+	e.SetCurrentScene(&scene);
 	e.Start();
 
 	return 0;

@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 
 namespace Engine {
+	class Camera;
 	class RawMesh;
 	class ShaderProgram;
 
@@ -33,12 +34,12 @@ namespace Engine {
 
 		glm::mat4x4 GetTransform();
 
-		void Draw();
+		void Draw(Camera* currentCamera);
 
 	private:
-		void CleanUp();
+		void PerpareToDraw(Camera* currentCamera);
 
-		void PerpareToDraw();
+		void CleanUp();
 
 		////////////////////////////////////////////////
 		//	Member Data

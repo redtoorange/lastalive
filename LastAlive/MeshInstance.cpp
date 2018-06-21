@@ -5,6 +5,7 @@
 
 #include "RawMesh.h"
 #include "ShaderProgram.h"
+#include "Camera.h"
 
 namespace Engine {
 	MeshInstance::MeshInstance(RawMesh* mesh)
@@ -21,14 +22,14 @@ namespace Engine {
 
 	glm::mat4x4 MeshInstance::GetTransform() {
 		glm::mat4x4 matrix{1.0};
-		
-		 matrix = glm::translate(matrix, m_position);
 
-		 matrix = glm::rotate(matrix, m_rotation.x, {1, 0, 0});
-		 matrix = glm::rotate(matrix, m_rotation.y, {0, 1, 0});
-		 matrix = glm::rotate(matrix, m_rotation.z, {0, 0, 1});
-  
-		 matrix = glm::scale(matrix, m_scale);
+		matrix = glm::translate(matrix, m_position);
+
+		matrix = glm::rotate(matrix, m_rotation.x, {1, 0, 0});
+		matrix = glm::rotate(matrix, m_rotation.y, {0, 1, 0});
+		matrix = glm::rotate(matrix, m_rotation.z, {0, 0, 1});
+
+		matrix = glm::scale(matrix, m_scale);
 
 		return matrix;
 	}
@@ -49,11 +50,19 @@ namespace Engine {
 		m_pShader = shader;
 	}
 
-	void MeshInstance::PerpareToDraw() {
+	void MeshInstance::PerpareToDraw(Camera* currentCamera) {
 		sf::Texture::bind(m_texture);
 		m_pShader->Bind();
-		m_pShader->SetTransform(GetTransform());
-		m_pShader->SetPerspective(glm::mat4x4());
+
+		m_pShader->SetUniformMatrix("modelTransform", GetTransform());
+		if (currentCamera) {
+			m_pShader->SetUniformMatrix("viewCamera", currentCamera->GetView());
+			m_pShader->SetUniformMatrix("projectionCamera", currentCamera->GetProjection());
+		}
+		else {
+			m_pShader->SetUniformMatrix("viewCamera", glm::mat4x4(1));
+			m_pShader->SetUniformMatrix("projectionCamera", glm::mat4x4(1));
+		}
 	}
 
 	void MeshInstance::CleanUp() {
@@ -61,8 +70,8 @@ namespace Engine {
 		m_pShader->Unbind();
 	}
 
-	void MeshInstance::Draw() {
-		PerpareToDraw();
+	void MeshInstance::Draw(Camera* currentCamera) {
+		PerpareToDraw(currentCamera);
 		m_pMesh->Draw();
 		CleanUp();
 	}

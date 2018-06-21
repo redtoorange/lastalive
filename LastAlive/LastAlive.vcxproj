@@ -125,42 +125,35 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Component.cpp" />
     <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="GameScreen.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="OpenGLScreen.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="RawMesh.cpp" />
     <ClCompile Include="MeshInstance.cpp" />
-    <ClCompile Include="PlayerCharacter.cpp" />
-    <ClCompile Include="PlayerInputComponent.cpp" />
-    <ClCompile Include="PositionComponent.cpp" />
     <ClCompile Include="BatchRenderer.cpp" />
-    <ClCompile Include="Screen.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="Vector2f.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="Component.h" />
     <ClInclude Include="Engine.h" />
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="GameScreen.h" />
-    <ClInclude Include="OpenGLScreen.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="RawMesh.h" />
     <ClInclude Include="MeshInstance.h" />
-    <ClInclude Include="PlayerCharacter.h" />
-    <ClInclude Include="PlayerInputComponent.h" />
-    <ClInclude Include="PositionComponent.h" />
     <ClInclude Include="BatchRenderer.h" />
-    <ClInclude Include="Screen.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Sprite.hpp" />
-    <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="Vector2f.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\fragment.glsl" />
+    <None Include="assets\vertex.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\mario.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

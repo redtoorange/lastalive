@@ -13,7 +13,7 @@ namespace LastAlive {
 	public:
 		SpriteComponent();
 
-		// virtual void Render(sf::RenderWindow& p_window) override;
+		// virtual void AddToBatch(sf::RenderWindow& p_window) override;
 
 		void Render(Engine::BatchRenderer& p_batch) override;
 

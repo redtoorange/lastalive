@@ -7,22 +7,31 @@ namespace Engine {
 	using Uint = unsigned int;
 
 	class Screen;
+	class Scene;
 
 	class Engine {
 	public:
+		static Engine* Singleton;
+
 		Engine(sf::RenderWindow* window);
 
 		virtual ~Engine() = default;
 
 		virtual void Start();
 
-		virtual void SetCurrentScreen(Screen* p_pScreen);
+		virtual void SetCurrentScene(Scene* scene);
 
-		virtual Screen* GetCurrentScreen();
+		virtual Scene* GetCurrentScene();
 
-		virtual void SetRunning(bool p_running);
+		virtual void SetCurrentCamera(Camera* currentCamera);
+
+		virtual Camera* GetCurrentCamera() const;
+
+		virtual void SetRunning(bool running);
 
 		virtual bool IsRunning();
+
+		static Engine* GetSingleton();
 
 	protected:
 		virtual void update();
@@ -35,8 +44,9 @@ namespace Engine {
 		////////////////////////////////////////////////
 		//	Member Data
 		////////////////////////////////////////////////
-		sf::RenderWindow* m_pWindow;
-		Screen* m_pCurrentScreen;
+		sf::RenderWindow* m_window;
+		Scene* m_currentScene;
+		Camera* m_currentCamera;
 
 		BatchRenderer m_renderer;
 		sf::Clock m_clock;

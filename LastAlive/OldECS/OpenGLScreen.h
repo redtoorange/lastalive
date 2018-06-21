@@ -9,5 +9,6 @@ namespace Engine {
 
 	private:
 		LastAlive::PlayerCharacter sprite;
+		PerspectiveCamera testCamera;
 	};
 }

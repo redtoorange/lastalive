@@ -5,10 +5,9 @@
 
 namespace Engine {
 
-	BatchRenderer::BatchRenderer() {
-	}
+	BatchRenderer::BatchRenderer() { }
 
-	void BatchRenderer::Render(MeshInstance* instance) {
+	void BatchRenderer::AddToBatch(MeshInstance* instance) {
 		auto const mesh = instance->GetMesh();
 		auto position = m_instances.find(mesh);
 
@@ -20,15 +19,15 @@ namespace Engine {
 		}
 	}
 
-	void BatchRenderer::RenderBatch() {
-		glEnable(GL_BLEND); 
+	void BatchRenderer::RenderBatch(Camera* currentCamera) {
+		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		for (auto& mesh : m_instances) {
 			// Prepare the mesh
 			mesh.first->PrepareToDraw();
 
 			for (MeshInstance* instance : mesh.second) {
-				instance->Draw();
+				instance->Draw(currentCamera);
 			}
 
 			// Cleanup the mesh
