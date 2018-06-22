@@ -1,4 +1,6 @@
 #include "Node.h"
+#include "BatchRenderer.h"
+#include "Engine.h"
 
 namespace Engine {
 	/////////////////////////////
@@ -18,10 +20,10 @@ namespace Engine {
 		}
 	}
 
-	void Node::Input() {
+	void Node::Input(sf::Event& event) {
 		for (auto& node : m_children) {
 			if (node)
-				node->Input();
+				node->Input(event);
 		}
 	}
 
@@ -31,7 +33,7 @@ namespace Engine {
 
 	void Node::RemoveNode(Node* deadNode) {
 		for (auto iter = m_children.begin(); iter != m_children.end(); ++iter) {
-			if((*iter).get() == deadNode) {
+			if ((*iter).get() == deadNode) {
 				m_children.erase(iter);
 				break;
 			}
@@ -81,9 +83,8 @@ namespace Engine {
 	}
 
 	/////////////////////////////
-	//	Sprite Node Impl
+	//	Camera2DNode Impl
 	/////////////////////////////
-
 	void Camera2DNode::SetActive(bool active) {
 		m_camera.MakeActive(active);
 	}
@@ -91,7 +92,90 @@ namespace Engine {
 	void Camera2DNode::Update(float deltaTime) {
 		auto pos = GetPosition();
 		m_camera.SetPosition({pos.x, pos.y, 1.0f});
-		
+
 		m_camera.UpdateCamera();
+
+		Node2D::Update(deltaTime);
+	}
+
+	/////////////////////////////
+	//	Spatial Node Impl
+	/////////////////////////////
+	void Spatial::SetPosition(const glm::vec3& position) {
+		m_position = position;
+	}
+
+	void Spatial::SetScale(const glm::vec3& scale) {
+		m_scale = scale;
+	}
+
+	void Spatial::SetRotation(const glm::vec3& rotation) {
+		m_rotation = rotation;
+	}
+
+	glm::vec3 Spatial::GetPosition() const {
+		return m_position;
+	}
+
+	glm::vec3 Spatial::GetScale() const {
+		return m_scale;
+	}
+
+	glm::vec3 Spatial::GetRotation() const {
+		return m_rotation;
+	}
+
+	/////////////////////////////
+	//	Camera3D Node Impl
+	/////////////////////////////
+	Camera3DNode::Camera3DNode() {
+		SetRotation(m_camera.GetRotation());
+		SetPosition(m_camera.GetPosition());
+	}
+
+	void Camera3DNode::SetActive(bool active) {
+		m_camera.MakeActive(active);
+	}
+
+	void Camera3DNode::Update(float deltaTime) {
+		m_camera.SetPosition(GetPosition());
+		m_camera.SetRotation(GetRotation());
+
+		m_camera.UpdateCamera();
+
+		Spatial::Update(deltaTime);
+	}
+
+	PerspectiveCamera* Camera3DNode::GetCamera() {
+		return &m_camera;
+	}
+
+	/////////////////////////////
+	//	CubeModelNode Impl
+	/////////////////////////////
+	CubeModelNode::CubeModelNode() : shader(ShaderProgram::GetDefaultShader()){
+		instance.SetMesh(&mesh);
+
+		instance.SetPosition(GetPosition());
+		instance.SetRotation(GetRotation());
+		instance.SetScale(GetScale());
+
+		texture.loadFromFile("assets/debug.png");
+
+		instance.SetTexture(&texture);
+		instance.SetShader(&shader);
+	}
+
+	void CubeModelNode::Update(float deltaTime) {
+		instance.SetPosition(GetPosition());
+		instance.SetRotation(GetRotation());
+		instance.SetScale(GetScale());
+
+		Spatial::Update(deltaTime);
+	}
+
+	void CubeModelNode::Render(BatchRenderer& batch) {
+		batch.AddToBatch(&instance);
+		Spatial::Render(batch);
 	}
 }

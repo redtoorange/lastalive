@@ -3,18 +3,17 @@
 #include <vector>
 #include <memory>
 #include <unordered_map>
-#include "Camera.h"
 
 namespace Engine {
-	class ShaderProgram;
 	class RawMesh;
 	class MeshInstance;
+	class Camera;
 
 	using MeshBatch = std::unordered_map<RawMesh*, std::vector<MeshInstance*>>;
 
 	class BatchRenderer {
 	public:
-		BatchRenderer();
+		BatchRenderer() = default;
 
 		virtual ~BatchRenderer() = default;
 

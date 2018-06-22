@@ -1,6 +1,7 @@
 #include "Scene.h"
 #include "Node.h"
 #include "BatchRenderer.h"
+#include <SFML/Window/Event.hpp>
 
 namespace Engine {
 	void Scene::Update(float deltaTime) {
@@ -13,9 +14,9 @@ namespace Engine {
 			m_rootNode->Render(batch);
 	}
 
-	void Scene::Input() {
+	void Scene::Input(sf::Event& event) {
 		if (m_rootNode)
-			m_rootNode->Input();
+			m_rootNode->Input(event);
 	}
 
 	void Scene::SetRootNode(Node* newRoot) {
@@ -26,4 +27,3 @@ namespace Engine {
 		return m_rootNode;
 	}
 }
-

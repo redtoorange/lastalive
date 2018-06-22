@@ -23,6 +23,10 @@ namespace Engine {
 
 		void SetRotation(const glm::vec3& rot);
 
+		glm::vec3 GetPosition() const;
+
+		glm::vec3 GetRotation() const;
+
 	protected:
 		glm::vec3 m_position{0, 0, 1.0f};
 
@@ -46,6 +50,12 @@ namespace Engine {
 		glm::mat4x4 GetProjection() const override;
 
 		glm::mat4x4 GetView() const override;
+
+		glm::vec3 GetForward() const;
+
+		glm::vec3 GetRight() const;
+
+		glm::vec3 GetUp() const;
 
 		void UpdateCamera() override;
 	};

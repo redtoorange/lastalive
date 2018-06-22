@@ -72,8 +72,12 @@ namespace Engine {
 			if (events.type == sf::Event::Closed)
 				m_running = false;
 
+			if (events.type == sf::Event::KeyPressed)
+				if(events.key.code == sf::Keyboard::Escape)
+					m_running = false;
+
 			if (m_currentScene)
-				m_currentScene->Input();
+				m_currentScene->Input(events);
 		}
 	}
 
@@ -91,5 +95,9 @@ namespace Engine {
 
 	Camera* Engine::GetCurrentCamera() const {
 		return m_currentCamera;
+	}
+
+	sf::RenderWindow* Engine::GetCurrentWindow() {
+		return m_window;
 	}
 } //  namespace Engine

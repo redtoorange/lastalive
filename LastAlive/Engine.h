@@ -33,6 +33,8 @@ namespace Engine {
 
 		static Engine* GetSingleton();
 
+		sf::RenderWindow* GetCurrentWindow();
+
 	protected:
 		virtual void update();
 

@@ -24,6 +24,14 @@ namespace Engine {
 		m_yaw = rot.z;
 	}
 
+	glm::vec3 Camera::GetPosition() const {
+		return m_position;
+	}
+
+	glm::vec3 Camera::GetRotation() const {
+		return {m_pitch, m_roll, m_yaw};
+	}
+
 	////////////////////////////////////////////////////////
 	//	Perspective Camera
 	////////////////////////////////////////////////////////
@@ -47,6 +55,18 @@ namespace Engine {
 		m_right = glm::normalize(glm::cross(m_front, m_worldUp));
 		// Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
 		m_up = glm::normalize(glm::cross(m_right, m_front));
+	}
+
+	glm::vec3 PerspectiveCamera::GetForward() const {
+		return m_front;
+	}
+
+	glm::vec3 PerspectiveCamera::GetRight() const {
+		return m_right;
+	}
+
+	glm::vec3 PerspectiveCamera::GetUp() const {
+		return m_up;
 	}
 
 	////////////////////////////////////////////////////////

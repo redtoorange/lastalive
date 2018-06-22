@@ -1,5 +1,9 @@
 #pragma once
 
+namespace sf {
+	class Event;
+}
+
 namespace Engine {
 	class Node;
 	class BatchRenderer;
@@ -14,13 +18,13 @@ namespace Engine {
 
 		virtual void Render(BatchRenderer& batch);
 
-		virtual void Input();
+		virtual void Input(sf::Event& event);
 
-		virtual void SetRootNode(Node* newNode);
+		virtual void SetRootNode(Node* newRoot);
 
 		virtual Node* GetRootNode();
 
 	private:
-		Node* m_rootNode;
+		Node* m_rootNode = nullptr;
 	};
 }

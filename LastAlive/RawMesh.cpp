@@ -73,7 +73,29 @@ namespace Engine {
 		glBindVertexArray(0);
 	}
 
+	void RawMesh::LoadModelData(std::vector<float>& positions, std::vector<float>& texCoords) {
+		// Register a vao for the model
+		glGenVertexArrays(1, &m_vao);
+		glBindVertexArray(m_vao);
+
+		// Load the model's data to buffers
+		LoadBufferData(GL_ARRAY_BUFFER, positions, 0, 3);
+		LoadBufferData(GL_ARRAY_BUFFER, texCoords, 1, 2);
+		m_vertexCount = static_cast<GLuint>(positions.size())/3;
+
+		// Cleanup
+		glBindVertexArray(0);
+	}
+
 	RectangleMesh::RectangleMesh() {
 		LoadModelData(positions, textureCoords, indices);
+	}
+
+	CubeMesh::CubeMesh() {
+		LoadModelData(positions, textureCoords);
+	}
+
+	void CubeMesh::Draw() {
+		glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(positions.size() / 3));
 	}
 }

@@ -5,6 +5,10 @@
 #include "Sprite.hpp"
 #include "Camera.h"
 
+namespace sf {
+	class Event;
+}
+
 namespace Engine {
 	class Node {
 	public:
@@ -19,7 +23,7 @@ namespace Engine {
 		virtual void Render(BatchRenderer& batch);
 
 		/// Call Input on all children
-		virtual void Input();
+		virtual void Input(sf::Event& event);
 
 		/// Add a node and assume ownership
 		void AddNode(Node* newNode);
@@ -41,6 +45,63 @@ namespace Engine {
 
 	private:
 		std::vector<std::unique_ptr<Node>> m_children;
+	};
+
+	class Spatial : public Node {
+	public:
+		Spatial() = default;
+
+		virtual ~Spatial() = default;
+
+		void SetPosition(const glm::vec3& position);
+
+		void SetScale(const glm::vec3& position);
+
+		void SetRotation(const glm::vec3& position);
+
+		glm::vec3 GetPosition() const;
+
+		glm::vec3 GetScale() const;
+
+		glm::vec3 GetRotation() const;
+
+	private:
+		glm::vec3 m_position{0.0f, 0.0f, 0.0f};
+		glm::vec3 m_scale{1.0f, 1.0f, 1.0f};
+		glm::vec3 m_rotation{0.0f, 0.0f, 0.0f};
+	};
+
+	class CubeModelNode : public Spatial {
+	public:
+		CubeModelNode();
+
+		void Update(float deltaTime) override;
+
+		void Render(BatchRenderer& batch) override;
+
+	private:
+		MeshInstance instance;
+		CubeMesh mesh;
+
+		ShaderProgram shader;
+		sf::Texture texture;
+	};
+
+	class Camera3DNode : public Spatial {
+	public:
+		Camera3DNode();
+
+		virtual ~Camera3DNode() = default;
+
+		void SetActive(bool active);
+
+		void Update(float deltaTime) override;
+
+	protected:
+		PerspectiveCamera* GetCamera();
+
+	private:
+		PerspectiveCamera m_camera;
 	};
 
 	class Node2D : public Node {
@@ -88,5 +149,3 @@ namespace Engine {
 		OrthographicCamera m_camera;
 	};
 }
-
-

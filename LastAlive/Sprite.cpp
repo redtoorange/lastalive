@@ -5,7 +5,7 @@
 #include "ShaderProgram.h"
 
 namespace Engine {
-	Sprite::Sprite() : m_shader(ShaderProgram::GetDefaultShader()){
+	Sprite::Sprite() : m_shader(ShaderProgram::GetDefaultShader()) {
 		m_meshInstance.SetMesh(&m_spriteMesh);
 		m_meshInstance.SetShader(&m_shader);
 
