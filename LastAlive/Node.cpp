@@ -160,7 +160,10 @@ namespace Engine {
 		instance.SetRotation(GetRotation());
 		instance.SetScale(GetScale());
 
-		texture.loadFromFile("assets/debug.png");
+		texture.LoadFromFile("assets/debug.png");
+		texture.SetRepeats(false);
+		texture.SetSmooth(true);
+		texture.GenerateMipMap();
 
 		instance.SetTexture(&texture);
 		instance.SetShader(&shader);

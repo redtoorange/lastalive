@@ -1,8 +1,9 @@
 #pragma once
-#include <SFML/Graphics/Texture.hpp>
+
 #include "MeshInstance.h"
 #include "RawMesh.h"
 #include "ShaderProgram.h"
+#include "Texture.hpp"
 
 namespace Engine {
 	class BatchRenderer;
@@ -20,8 +21,7 @@ namespace Engine {
 		void SetScale(float x, float y);
 
 	private:
-		sf::Texture m_texture;
-
+		Texture m_texture;
 		ShaderProgram m_shader;
 		MeshInstance m_meshInstance;
 		RectangleMesh m_spriteMesh;

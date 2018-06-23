@@ -50,7 +50,7 @@ namespace Engine {
 	}
 
 	ShaderProgram::~ShaderProgram() {
-		Unbind();
+		SetBound(false);
 		Delete();
 	}
 
@@ -83,12 +83,11 @@ namespace Engine {
 		return success;
 	}
 
-	void ShaderProgram::Bind() {
-		glUseProgram(m_program);
-	}
-
-	void ShaderProgram::Unbind() {
-		glUseProgram(0);
+	void ShaderProgram::SetBound(bool bound) {
+		if(bound)
+			glUseProgram(m_program);
+		else
+			glUseProgram(0);
 	}
 
 	void ShaderProgram::Delete() {

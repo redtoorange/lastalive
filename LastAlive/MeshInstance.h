@@ -1,12 +1,12 @@
 #pragma once
 
-#include <SFML/Graphics/Texture.hpp>
 #include <glm/glm.hpp>
 
 namespace Engine {
 	class Camera;
 	class RawMesh;
 	class ShaderProgram;
+	class Texture;
 
 	class MeshInstance {
 	public:
@@ -16,7 +16,7 @@ namespace Engine {
 
 		void SetShader(ShaderProgram* shader);
 
-		void SetTexture(sf::Texture* texture);
+		void SetTexture(Texture* texture);
 
 		void SetPosition(const glm::vec3& position);
 
@@ -46,7 +46,7 @@ namespace Engine {
 		////////////////////////////////////////////////
 		ShaderProgram* m_pShader;
 		RawMesh* m_pMesh;
-		sf::Texture* m_texture;
+		Texture* m_texture;
 
 		glm::vec3 m_position{0, 0, 0};
 		glm::vec3 m_rotation{0, 0, 0};

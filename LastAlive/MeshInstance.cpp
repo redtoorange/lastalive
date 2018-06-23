@@ -6,6 +6,7 @@
 #include "RawMesh.h"
 #include "ShaderProgram.h"
 #include "Camera.h"
+#include "Texture.hpp"
 
 namespace Engine {
 	MeshInstance::MeshInstance(RawMesh* mesh)
@@ -16,7 +17,7 @@ namespace Engine {
 		m_rotation = glm::vec3{0, 0, 0};
 	}
 
-	void MeshInstance::SetTexture(sf::Texture* texture) {
+	void MeshInstance::SetTexture(Texture* texture) {
 		m_texture = texture;
 	}
 
@@ -51,8 +52,9 @@ namespace Engine {
 	}
 
 	void MeshInstance::PerpareToDraw(Camera* currentCamera) {
-		sf::Texture::bind(m_texture);
-		m_pShader->Bind();
+		glActiveTexture(GL_TEXTURE0);
+		m_texture->SetBound(true);
+		m_pShader->SetBound(true);
 
 		m_pShader->SetUniformMatrix("modelTransform", GetTransform());
 		if (currentCamera) {
@@ -66,8 +68,8 @@ namespace Engine {
 	}
 
 	void MeshInstance::CleanUp() {
-		sf::Texture::bind(nullptr);
-		m_pShader->Unbind();
+		m_texture->SetBound(false);
+		m_pShader->SetBound(false);
 	}
 
 	void MeshInstance::Draw(Camera* currentCamera) {

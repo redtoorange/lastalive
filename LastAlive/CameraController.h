@@ -26,6 +26,6 @@ namespace Engine {
 		float m_moveSpeed = 2.5;
 		float m_mouseSensitivity = 0.1f;
 		float m_maxPitch = 75.0f;
-		sf::Vector2i m_mousePos;
+		glm::vec2 m_mousePos;
 	};
 }

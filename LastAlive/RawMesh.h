@@ -88,10 +88,10 @@ namespace Engine {
 
 		std::vector<float> textureCoords =
 		{
-			1.0f, 1.0f,
 			1.0f, 0.0f,
-			0.0f, 0.0f,
-			0.0f, 1.0f
+			1.0f, 1.0f,
+			0.0f, 1.0f,
+			0.0f, 0.0f
 		};
 
 		std::vector<GLuint> indices = {

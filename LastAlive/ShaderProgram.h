@@ -1,6 +1,5 @@
 #pragma once
 #include <GL/glew.h>
-#include <SFML/OpenGL.hpp>
 #include <glm/glm.hpp>
 #include <string>
 
@@ -11,9 +10,7 @@ namespace Engine {
 
 		virtual ~ShaderProgram();
 
-		void Bind();
-
-		void Unbind();
+		void SetBound(bool bound);
 
 		void Delete();
 

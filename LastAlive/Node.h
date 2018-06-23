@@ -84,7 +84,7 @@ namespace Engine {
 		CubeMesh mesh;
 
 		ShaderProgram shader;
-		sf::Texture texture;
+		Texture texture;
 	};
 
 	class Camera3DNode : public Spatial {

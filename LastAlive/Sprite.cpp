@@ -9,14 +9,8 @@ namespace Engine {
 		m_meshInstance.SetMesh(&m_spriteMesh);
 		m_meshInstance.SetShader(&m_shader);
 
-		sf::Image image;
-		image.loadFromFile("assets/mario.png");
-		image.flipVertically();
-
-		m_texture.loadFromImage(image);
-		m_texture.setRepeated(false);
-		m_texture.setSmooth(true);
-		m_texture.generateMipmap();
+		m_texture.LoadFromFile("assets/mario.png");
+		m_texture.SetSmooth(true);
 
 		m_meshInstance.SetTexture(&m_texture);
 	}

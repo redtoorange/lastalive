@@ -1,19 +1,43 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
+// #include <SFML/Graphics.hpp>
 #include "BatchRenderer.h"
+#include <SDL.h>
 
 namespace Engine {
-	using Uint = unsigned int;
-
+	class RenderWindow;
 	class Screen;
 	class Scene;
+
+	class Clock {
+	public:
+		float GetDeltaTime() const {
+			return deltaTime;
+		}
+
+		/**
+		 * \return deltaTime in seconds
+		 */
+		float UpdateClock() {
+			last = now;
+			now = SDL_GetPerformanceCounter();
+
+			deltaTime = (now - last) * 1000.0f / static_cast<float>(SDL_GetPerformanceFrequency());
+			deltaTime *= 0.001f;
+			return deltaTime;
+		}
+
+	private:
+		Uint64 now = 0;
+		Uint64 last = 0;
+		float deltaTime = 0;
+	};
 
 	class Engine {
 	public:
 		static Engine* Singleton;
 
-		Engine(sf::RenderWindow* window);
+		Engine(RenderWindow* window);
 
 		virtual ~Engine() = default;
 
@@ -33,7 +57,7 @@ namespace Engine {
 
 		static Engine* GetSingleton();
 
-		sf::RenderWindow* GetCurrentWindow();
+		RenderWindow* GetCurrentWindow();
 
 	protected:
 		virtual void update();
@@ -46,12 +70,12 @@ namespace Engine {
 		////////////////////////////////////////////////
 		//	Member Data
 		////////////////////////////////////////////////
-		sf::RenderWindow* m_window;
+		RenderWindow* m_window;
 		Scene* m_currentScene;
 		Camera* m_currentCamera;
 
 		BatchRenderer m_renderer;
-		sf::Clock m_clock;
+		Clock m_clock;
 		bool m_running = false;
 	};
 } //  namespace Engine

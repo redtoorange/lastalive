@@ -1,6 +1,6 @@
 #include "CameraController.h"
-#include <SFML/Window/Event.hpp>
 #include "Engine.h"
+#include "RenderWindow.hpp"
 
 namespace Engine {
 
@@ -8,25 +8,25 @@ namespace Engine {
 	//	Camera2DController Impl
 	/////////////////////////////
 	void Camera2DController::Update(float deltaTime) {
-		glm::vec2 inputDelta{0, 0};
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-			inputDelta.y += 1;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-			inputDelta.y -= 1;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-			inputDelta.x -= 1;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-			inputDelta.x += 1;
-		}
-
-		auto pos = GetPosition();
-		pos.x += inputDelta.x * deltaTime * m_speed;
-		pos.y += inputDelta.y * deltaTime * m_speed;
-		SetPosition(pos.x, pos.y);
+		// glm::vec2 inputDelta{0, 0};
+		//
+		// if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+		// 	inputDelta.y += 1;
+		// }
+		// if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+		// 	inputDelta.y -= 1;
+		// }
+		// if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+		// 	inputDelta.x -= 1;
+		// }
+		// if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+		// 	inputDelta.x += 1;
+		// }
+		//
+		// auto pos = GetPosition();
+		// pos.x += inputDelta.x * deltaTime * m_speed;
+		// pos.y += inputDelta.y * deltaTime * m_speed;
+		// SetPosition(pos.x, pos.y);
 
 		Camera2DNode::Update(deltaTime);
 	}
@@ -37,9 +37,16 @@ namespace Engine {
 
 	Camera3DController::Camera3DController() {
 		auto window = Engine::GetSingleton()->GetCurrentWindow();
-		m_mousePos = window->getPosition();
-		m_mousePos.x += window->getSize().x/2;
-		m_mousePos.y += window->getSize().y/2;
+
+		int x, y;
+		SDL_GetWindowPosition(window->GetSDLWindow(), &x, &y);
+
+		int w, h;
+		SDL_GetWindowSize(window->GetSDLWindow(), &w, &h);
+
+		m_mousePos = {x, y};
+		m_mousePos.x += w / 2;
+		m_mousePos.y += h / 2;
 	}
 
 	void Camera3DController::Update(float deltaTime) {
@@ -50,42 +57,43 @@ namespace Engine {
 		const auto right = camera->GetRight();
 		const auto up = camera->GetUp();
 
+		auto state = SDL_GetKeyboardState(NULL);
 		// Forward/Back
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+		if (state[SDL_SCANCODE_W]) {
 			pos += forward * deltaTime * m_moveSpeed;
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+		if (state[SDL_SCANCODE_S]) {
 			pos -= forward * deltaTime * m_moveSpeed;
 		}
 
 		// Strafe
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+		if (state[SDL_SCANCODE_A]) {
 			pos -= right * deltaTime * m_moveSpeed;
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+		if (state[SDL_SCANCODE_D]) {
 			pos += right * deltaTime * m_moveSpeed;
 		}
 
-		// Up/Down
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-			pos += up * deltaTime * m_moveSpeed;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) {
-			pos -= up * deltaTime * m_moveSpeed;
-		}
 		pos.y = 0;
 
 		SetPosition(pos);
-		
 
-		const auto newMousePos = sf::Mouse::getPosition();
-		const auto mouseDelta = newMousePos - m_mousePos;
-		sf::Mouse::setPosition(m_mousePos);
+		int x, y;
+		SDL_GetMouseState(&x, &y);
+
+		int dx = x - m_mousePos.x;
+		int dy = y - m_mousePos.y;
+		// m_mousePos = {x, y};
+		SDL_WarpMouseInWindow(SDL_GL_GetCurrentWindow(), m_mousePos.x, m_mousePos.y);
+
+		// const auto newMousePos = sf::Mouse::getPosition();
+		// const auto mouseDelta = newMousePos - m_mousePos;
+		// sf::Mouse::setPosition(m_mousePos);
 
 		auto rot = GetRotation();
-		rot.x += -1 * mouseDelta.y * m_mouseSensitivity;
+		rot.x += -1 * dy * m_mouseSensitivity;
 		rot.x = glm::clamp<float>(rot.x, -m_maxPitch, m_maxPitch);
-		rot.z += mouseDelta.x * m_mouseSensitivity;
+		rot.z += dx * m_mouseSensitivity;
 		SetRotation(rot);
 
 		Camera3DNode::Update(deltaTime);

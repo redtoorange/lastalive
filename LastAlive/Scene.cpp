@@ -1,7 +1,6 @@
 #include "Scene.h"
 #include "Node.h"
 #include "BatchRenderer.h"
-#include <SFML/Window/Event.hpp>
 
 namespace Engine {
 	void Scene::Update(float deltaTime) {

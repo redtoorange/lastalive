@@ -1,12 +1,12 @@
 #include "Engine.h"
 #include "Scene.h"
-#include <iostream>
 #include <GL/glew.h>
+#include "RenderWindow.hpp"
 
 namespace Engine {
 	Engine* Engine::Singleton = nullptr;
 
-	Engine::Engine(sf::RenderWindow* window)
+	Engine::Engine(RenderWindow* window)
 		: m_window(window) {
 		if (Singleton)
 			std::exception("Attempting to create two copies of a singleton.");
@@ -27,28 +27,29 @@ namespace Engine {
 	void Engine::Start() {
 		m_running = true;;
 
+		m_window->ShowWindow(true);
 		while (m_running) {
 			handleInput();
 			update();
 			render();
 		}
-
-		m_window->close();
+		m_window->ShowWindow(false);
 	}
 
 	float total = 0;
 	int frames = 0;
 
 	void Engine::update() {
-		const auto deltaTime = m_clock.restart().asSeconds();
+		const auto deltaTime = m_clock.UpdateClock();
+		SDL_PumpEvents();
 
-		frames++;
-		total += deltaTime;
-		if (total >= 1.0f) {
-			total = 0;
-			std::cout << "FPS: " << frames << "\n";
-			frames = 0;
-		}
+		 frames++;
+		 total += deltaTime;
+		 if (total >= 1.0f) {
+		 	total = 0;
+			SDL_Log( "FPS: %i \n", frames );
+		 	frames = 0;
+		 }
 
 		if (m_currentScene)
 			m_currentScene->Update(deltaTime);
@@ -63,21 +64,20 @@ namespace Engine {
 
 		m_renderer.RenderBatch(m_currentCamera);
 
-		m_window->display();
+		m_window->SwapBuffers();
 	}
 
 	void Engine::handleInput() {
-		sf::Event events;
-		while (m_window->pollEvent(events)) {
-			if (events.type == sf::Event::Closed)
+		SDL_Event events;
+		while(SDL_PollEvent(&events)) {
+			if (events.type == SDL_QUIT)
 				m_running = false;
-
-			if (events.type == sf::Event::KeyPressed)
-				if(events.key.code == sf::Keyboard::Escape)
-					m_running = false;
-
-			if (m_currentScene)
-				m_currentScene->Input(events);
+			if (events.type == SDL_KEYUP && events.key.keysym.sym == SDLK_ESCAPE)
+				m_running = false;
+			 	
+			//
+			// 	if (m_currentScene)
+			// 		m_currentScene->Input(events);
 		}
 	}
 
@@ -97,7 +97,7 @@ namespace Engine {
 		return m_currentCamera;
 	}
 
-	sf::RenderWindow* Engine::GetCurrentWindow() {
+	RenderWindow* Engine::GetCurrentWindow() {
 		return m_window;
 	}
 } //  namespace Engine
