@@ -55,9 +55,9 @@ namespace Engine {
 
 		void SetPosition(const glm::vec3& position);
 
-		void SetScale(const glm::vec3& position);
+		void SetScale(const glm::vec3& scale);
 
-		void SetRotation(const glm::vec3& position);
+		void SetRotation(const glm::vec3& rotation);
 
 		glm::vec3 GetPosition() const;
 

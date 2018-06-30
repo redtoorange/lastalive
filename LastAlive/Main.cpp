@@ -1,44 +1,34 @@
 #include "Engine.h"
-
 #include <SDL.h>
-#include <GL/glew.h>
-
-// #include <SFML/OpenGL.hpp>
 #include "Scene.h"
 #include "Node.h"
 #include "CameraController.h"
 #include "RenderWindow.hpp"
 
-std::unique_ptr<Engine::RenderWindow> renderWindow;
-
 int main(int argc, char* argv[]) {
-	 
-	// sf::ContextSettings settings;
-	// settings.depthBits = 24;
-	// settings.stencilBits = 8;
-	// settings.antialiasingLevel = 4;
-	// settings.majorVersion = 3;
-	// settings.minorVersion = 3;
- //
-	// sf::RenderWindow window(sf::VideoMode{1422, 800}, "Last Alive", sf::Style::Default, settings);
-	// window.setActive(true);
-	// window.setMouseCursorGrabbed(true);
-	// window.setMouseCursorVisible(false);
-	// window.setFramerateLimit(60);
-	renderWindow = std::make_unique<Engine::RenderWindow>("Last Alive");
-	glewInit();
+	Engine::RenderWindow renderWindow{"Last Alive"};
+	
 
-	Engine::Engine e{ renderWindow.get()};
+	Engine::Engine e{&renderWindow};
+
 	Engine::Scene scene;
-
 	Engine::SpriteNode spriteNode;
-	spriteNode.AddNode(new Engine::Camera3DController());
-	auto cam = spriteNode.GetNode<Engine::Camera3DController>();
+	
+	auto cam = new Engine::Camera3DController();
 	cam->SetActive(true);
+	spriteNode.AddNode(cam);
 
-	auto cube = new Engine::CubeModelNode();
-	cube->SetPosition({-2, 0, -2});
-	spriteNode.AddNode(cube);
+	auto count = 5;
+	auto dist = 5;
+	for (int x = 0; x < count; x++) {
+		for (int y = 0; y < count; y++) {
+			for (int z = 0; z < count; z++) {
+				auto cube = new Engine::CubeModelNode();
+				cube->SetPosition({-x * dist, y * dist, -z * dist});
+				spriteNode.AddNode(cube);
+			}
+		}
+	}
 
 	scene.SetRootNode(&spriteNode);
 

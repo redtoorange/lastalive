@@ -1,21 +1,26 @@
 #include "RenderWindow.hpp"
+#include <GL/glew.h>
 
 namespace Engine {
 
 	RenderWindow::RenderWindow(const std::string& title, int width, int height) {
 		SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
+		SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 5);
+		SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 5);
+		SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 5);
+		SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
+
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 		window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height,
 		                          SDL_WINDOW_OPENGL);
+
 		if (window) {
 			context = SDL_GL_CreateContext(window);
-			if (context) {
-				SDL_GL_MakeCurrent(window, context);
-				SDL_GL_SetSwapInterval(-1);
-				SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-				SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
-				SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-				SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-				SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
+
+			if(context) {
+				glewInit();
 			}
 			else {
 				SDL_Log("Failed to create the glContext.\n");

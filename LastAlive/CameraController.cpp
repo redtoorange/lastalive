@@ -38,18 +38,15 @@ namespace Engine {
 	Camera3DController::Camera3DController() {
 		auto window = Engine::GetSingleton()->GetCurrentWindow();
 
-		int x, y;
-		SDL_GetWindowPosition(window->GetSDLWindow(), &x, &y);
-
 		int w, h;
 		SDL_GetWindowSize(window->GetSDLWindow(), &w, &h);
 
-		m_mousePos = {x, y};
-		m_mousePos.x += w / 2;
-		m_mousePos.y += h / 2;
+		m_mousePos = {w/2, h/2};
+		SDL_WarpMouseInWindow(SDL_GL_GetCurrentWindow(), m_mousePos.x, m_mousePos.y);
 	}
 
 	void Camera3DController::Update(float deltaTime) {
+		
 		auto camera = GetCamera();
 
 		auto pos = GetPosition();
@@ -73,9 +70,7 @@ namespace Engine {
 		if (state[SDL_SCANCODE_D]) {
 			pos += right * deltaTime * m_moveSpeed;
 		}
-
 		pos.y = 0;
-
 		SetPosition(pos);
 
 		int x, y;
@@ -83,17 +78,12 @@ namespace Engine {
 
 		int dx = x - m_mousePos.x;
 		int dy = y - m_mousePos.y;
-		// m_mousePos = {x, y};
 		SDL_WarpMouseInWindow(SDL_GL_GetCurrentWindow(), m_mousePos.x, m_mousePos.y);
 
-		// const auto newMousePos = sf::Mouse::getPosition();
-		// const auto mouseDelta = newMousePos - m_mousePos;
-		// sf::Mouse::setPosition(m_mousePos);
-
 		auto rot = GetRotation();
-		rot.x += -1 * dy * m_mouseSensitivity;
+		rot.x += -1 * dy * m_mouseSensitivity * deltaTime;
 		rot.x = glm::clamp<float>(rot.x, -m_maxPitch, m_maxPitch);
-		rot.z += dx * m_mouseSensitivity;
+		rot.z += dx * m_mouseSensitivity * deltaTime;
 		SetRotation(rot);
 
 		Camera3DNode::Update(deltaTime);

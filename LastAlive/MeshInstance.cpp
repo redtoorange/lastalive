@@ -75,7 +75,7 @@ namespace Engine {
 	void MeshInstance::Draw(Camera* currentCamera) {
 		PerpareToDraw(currentCamera);
 		m_pMesh->Draw();
-		CleanUp();
+		// CleanUp();
 	}
 
 	glm::vec3 MeshInstance::GetRotation() const {

@@ -22,7 +22,10 @@ namespace Engine {
 
 		void SetBound(bool bound);
 
+		bool HasTransparency() { transparent; };
+
 	private:
 		GLuint textureID;
+		bool transparent = false;
 	};
 }

@@ -19,12 +19,21 @@ namespace Engine {
 
 		void AddToBatch(MeshInstance* instance);
 
+		void EnableAplhaBlend(bool enable);
+
+		void EnableFaceCulling(bool enable);
+
+		void EnableDepthTesting(bool enable);
+
+		void ClearScreen();
+
 		void RenderBatch(Camera* currentCamera);
 
 	private:
 		////////////////////////////////////////////////
 		//	Member Data
 		////////////////////////////////////////////////
-		MeshBatch m_instances;
+		MeshBatch m_opaqueInstances;
+		MeshBatch m_transparentInstances;
 	};
 }

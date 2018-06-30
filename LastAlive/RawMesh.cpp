@@ -14,8 +14,8 @@ namespace Engine {
 		// Enable all attributes
 		glBindVertexArray(m_vao);
 
-		// for (auto& attribute : m_attributes)
-		// 	glEnableVertexAttribArray(attribute);
+		for (auto& attribute : m_attributes)
+			glEnableVertexAttribArray(attribute);
 	}
 
 	void RawMesh::Draw() {
@@ -24,8 +24,8 @@ namespace Engine {
 
 	void RawMesh::CleanUpAfterDraw() {
 		// Disable all attributes
-		// for (auto& attribute : m_attributes)
-		// 	glDisableVertexAttribArray(attribute);
+		for (auto& attribute : m_attributes)
+			glDisableVertexAttribArray(attribute);
 
 		glBindVertexArray(0);
 	}
@@ -92,10 +92,6 @@ namespace Engine {
 	}
 
 	CubeMesh::CubeMesh() {
-		LoadModelData(positions, textureCoords);
-	}
-
-	void CubeMesh::Draw() {
-		glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(positions.size() / 3));
+		LoadModelData(vertices, textureCoords, indices);
 	}
 }
